@@ -6,9 +6,45 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <link rel="stylesheet" href="css/main.min.css">
+  <link rel="stylesheet" href="css/header.min.css">
+  <link rel="stylesheet" href="css/contacts.min.css">
 </head>
 <body>
-  testsssssssssss
+  <!-- компания.название??
+  имейл
+  имя
+  телефон
+  сайт? -->
+  <header class="header">
+    <h1 class="header__title">Contacts</h1>
+    <input type="text" class="header__search" placeholder="Name">
+  </header>
+
+  <main class="contacts">
+    <div class="contacts__heading heading">
+      <div class="heading__item">
+        Name
+      </div>
+      <div class="heading__item">
+        E-mail
+      </div>
+      <div class="heading__item">
+        Phone
+      </div>
+      <div class="heading__item">
+        Company
+      </div>
+    </div>
+    <div class="contacts__counter counter">Contacts (80)</div>
+    <div class="contacts__list list" id="dynamicList">
+      <div class="list__item item">
+        <div class="item__name">Valeriy Zhmishenko</div>
+        <div class="item__email">adadd@jdfj.df</div>
+        <div class="item__phone">2281488</div>
+        <div class="item__company">Jmih Airlines</div>
+      </div>
+    </div>
+  </main>
   <script src="index.js"></script>
 </body>
 </html>

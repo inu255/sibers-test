@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"main.min.css","sourcesContent":[]}
+{"version":3,"sources":["main.scss"],"names":[],"mappings":"AAAA,KACE,+BAAgC,CAEhC,YAAa,CACb,eAAgB,CAChB,gBAAiB,CACjB,cAAe,CACf,qCAPF,KAQI,UAAW,CAEd","file":"main.min.css","sourcesContent":["body {\r\n  font-family: 'Arial', sans-serif;\r\n  // box-sizing: border-box;\r\n  height: 100vh;\r\n  margin-left: 15%;\r\n  margin-right: 15%;\r\n  font-size: 14px;\r\n  @media screen and (max-width: 420px) {\r\n    margin: 8px;\r\n  }\r\n}\r\n"]}
