@@ -4,47 +4,120 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Contacts</title>
   <link rel="stylesheet" href="css/main.min.css">
   <link rel="stylesheet" href="css/header.min.css">
   <link rel="stylesheet" href="css/contacts.min.css">
+  <link rel="stylesheet" href="css/popup-show.min.css">
+  <link rel="stylesheet" href="css/popup-edit.min.css">
 </head>
 <body>
-  <!-- компания.название??
-  имейл
-  имя
-  телефон
-  сайт? -->
   <header class="header">
-    <h1 class="header__title">Contacts</h1>
+    <div class="header__logo">
+      <img class="header__image "src="img/profile-user.svg" alt="logo">
+      <h1 class="header__title">Contacts</h1>
+    </div>
     <input type="text" class="header__search" placeholder="Name">
   </header>
 
-  <main class="contacts">
-    <div class="contacts__heading heading">
-      <div class="heading__item">
-        Name
+  <main>
+    <div class="contacts">
+      <div class="contacts__heading heading">
+        <div class="heading__item">
+          Name
+        </div>
+        <div class="heading__item">
+          E-mail
+        </div>
+        <div class="heading__item">
+          Phone
+        </div>
+        <div class="heading__item">
+          Company
+        </div>
       </div>
-      <div class="heading__item">
-        E-mail
-      </div>
-      <div class="heading__item">
-        Phone
-      </div>
-      <div class="heading__item">
-        Company
+      <div class="contacts__counter counter">Contacts (80)</div>
+      <div class="contacts__list list" id="dynamicList">
+        <!-- <div class="list__item item">
+          <div class="item__name">Valeriy Zhmishenko</div>
+          <div class="item__email">adadd@jdfj.df</div>
+          <div class="item__phone">2281488</div>
+          <div class="item__company">Jmih Airlines</div>
+        </div> -->
       </div>
     </div>
-    <div class="contacts__counter counter">Contacts (80)</div>
-    <div class="contacts__list list" id="dynamicList">
-      <div class="list__item item">
-        <div class="item__name">Valeriy Zhmishenko</div>
-        <div class="item__email">adadd@jdfj.df</div>
-        <div class="item__phone">2281488</div>
-        <div class="item__company">Jmih Airlines</div>
+
+    <div class="popup-overlay"></div>
+
+    <div class="popup-show">
+      <div class="popup-show__header">
+        <h3 class="popup-show__name" id="popup-name"></h3>
+        <div class="popup-show__edit">
+          <img src="img/edit.svg" alt="edit">
+        </div>
+        <div class="popup-show__hide">
+          <img src="img/close-button.svg" alt="close">
+        </div>
       </div>
+      <div class="popup-show__body">
+
+        <div class="popup-show__details">Contact details</div>
+
+        <div class="popup-show__info popup-show__email">
+          <img class="popup-show__image" src="img/message.svg" alt="email">
+          <a id="email"></a>
+        </div>
+
+        <div class="popup-show__info popup-show__phone">
+          <img class="popup-show__image" src="img/call.svg" alt="phone">
+          <a id="phone"></a>
+        </div>
+
+        <div class="popup-show__info popup-show__company">
+          <img class="popup-show__image" src="img/web-server.svg" alt="company">
+          <span id="company"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="popup-edit">
+      <div class="popup-edit__header">
+        <h3 class="popup-edit__title">Edit contact</h3>
+        <div class="popup-edit__hide">
+          <img src="img/close-button.svg" alt="close">
+        </div>
+      </div>
+      <form action="">
+        <div class="popup-edit__form">
+          <div class="popup-edit__input">
+            <img class="popup-edit__image" src="img/profile-user.svg" alt="user">
+            <input type="text" class="popup-edit__name" placeholder="Name">
+          </div>
+
+          <div class="popup-edit__input">
+            <img class="popup-edit__image" src="img/message.svg" alt="email">
+            <input type="text" class="popup-edit__email" placeholder="E-mail">
+          </div>
+
+          <div class="popup-edit__input">
+            <img class="popup-edit__image" src="img/call.svg" alt="phone">
+            <input type="text" class="popup-edit__phone" placeholder="Phone">
+          </div>
+
+          <div class="popup-edit__input">
+            <img class="popup-edit__image" src="img/web-server.svg" alt="company">
+            <input type="text" class="popup-edit__company" placeholder="Company">
+          </div>
+
+        </div>
+
+        <div class="popup-edit__footer">
+          <button class="popup-edit__button popup-edit__cancel">Cancel</button>
+          <button class="popup-edit__button popup-edit__save">Save</button>
+        </div>
+      </form>
     </div>
   </main>
-  <script src="index.js"></script>
+  <script src="js/index.js"></script>
 </body>
 </html>

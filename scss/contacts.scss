@@ -8,14 +8,6 @@ $marginX: .6rem;
 @mixin align-head {
 	flex-basis: 25%;
 	padding: 1rem $marginX;
-
-	// &:nth-child(2) {
-	// 	text-align: center;
-	// }
-	//
-	// &:nth-child(3) {
-	// 	text-align: center;
-	// }
 }
 
 @mixin align-list {
@@ -25,8 +17,21 @@ $marginX: .6rem;
 }
 
 .contacts {
+	padding-left: 15%;
+	padding-right: 15%;
+	height: 90vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	@media screen and (max-width: 420px) {
+		padding-left: 0;
+		padding-right: 0;
+		height: calc(80.5vh - 4px);
+	}
 	&__heading {
 		border-bottom: 1px solid silver;
+		position: sticky;
+		top: 0;
+		background: white;
 	}
 
 	&__list {
@@ -51,7 +56,7 @@ $marginX: .6rem;
 }
 
 .counter {
-  width: 100%;
+  width: calc(100% - 16px);
   color: silver;
   font-weight: 500;
 }
@@ -68,25 +73,16 @@ $marginX: .6rem;
 .item {
 	display: flex;
 	justify-content: space-between;
+	cursor: pointer;
 
 	&__name {
 		@include align-head;
 		@media screen and (max-width: 420px) {
-			flex-basis: 100%;
+			flex-basis: calc(100% - 16px);
 		}
 	}
 
-	&__email {
-		@include align-head;
-		@include hide-on-mobile;
-	}
-
-	&__phone {
-		@include align-head;
-		@include hide-on-mobile;
-	}
-
-	&__company {
+	&__column:not(.item__name) {
 		@include align-head;
 		@include hide-on-mobile;
 	}
