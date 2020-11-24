@@ -22,29 +22,30 @@
 
   <main>
     <div class="contacts">
-      <div class="contacts__heading heading">
-        <div class="heading__item">
+      <div class="contacts__heading">
+        <div class="contacts__heading-item">
           Name
         </div>
-        <div class="heading__item">
+        <div class="contacts__heading-item">
           E-mail
         </div>
-        <div class="heading__item">
+        <div class="contacts__heading-item">
           Phone
         </div>
-        <div class="heading__item">
+        <div class="contacts__heading-item">
           Company
         </div>
       </div>
-      <div class="contacts__counter counter">Contacts (80)</div>
-      <div class="contacts__list list" id="dynamicList">
-        <!-- <div class="list__item item">
-          <div class="item__name">Valeriy Zhmishenko</div>
-          <div class="item__email">adadd@jdfj.df</div>
-          <div class="item__phone">2281488</div>
-          <div class="item__company">Jmih Airlines</div>
+      <div class="contacts__counter">Contacts (<span id="contactsNumber"></span>)</div>
+      <div class="contacts__list" id="dynamicList">
+
+        <!-- <div class="contacts__item">
+          <div class="contacts__name contacts__list-item">Valeriy Zhmishenko</div>
+          <div class="contacts__email contacts__list-item">adadd@jdfj.df</div>
+          <div class="contacts__phone contacts__list-item">2281488</div>
+          <div class="contacts__company contacts__list-item">Jmih Airlines</div>
         </div> -->
-      </div>
+        
     </div>
 
     <div class="popup-overlay"></div>
@@ -118,6 +119,6 @@
       </form>
     </div>
   </main>
-  <script src="js/index.js"></script>
+  <script src="js/contacts.js" type="module"></script>
 </body>
 </html>

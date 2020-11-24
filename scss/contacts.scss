@@ -34,46 +34,33 @@ $marginX: .6rem;
 		background: white;
 	}
 
-	&__list {
-
-	}
 	&__counter {
     padding: 1rem $marginX .3rem $marginX;
   }
 
-}
+	&__heading {
+		display: flex;
+		justify-content: space-between;
+		font-weight: bold;
+		@include hide-on-mobile;
+	}
 
-.heading {
-	display: flex;
-	justify-content: space-between;
-	font-weight: bold;
-
-	&__item {
+	&__heading-item {
 		@include align-head;
 
 	}
-	@include hide-on-mobile;
-}
 
-.counter {
-  width: calc(100% - 16px);
-  color: silver;
-  font-weight: 500;
-}
-
-.list {
-
-	&__item {
-
-
+	&__counter {
+	  // width: calc(100% - 16px);
+	  color: silver;
+	  font-weight: 500;
 	}
 
-}
-
-.item {
-	display: flex;
-	justify-content: space-between;
-	cursor: pointer;
+	&__item {
+		display: flex;
+		justify-content: space-between;
+		cursor: pointer;
+	}
 
 	&__name {
 		@include align-head;
@@ -82,7 +69,7 @@ $marginX: .6rem;
 		}
 	}
 
-	&__column:not(.item__name) {
+	&__list-item:not(.contacts__name) {
 		@include align-head;
 		@include hide-on-mobile;
 	}

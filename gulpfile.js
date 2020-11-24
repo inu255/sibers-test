@@ -44,7 +44,7 @@ function browserReload(done) {
 function watchAll() {
   gulp.watch("./scss/*", convertSass);
   gulp.watch("./index.html", browserReload);
-  gulp.watch("./index.js", browserReload);
+  gulp.watch("./js/*", browserReload);
 
 }
 
