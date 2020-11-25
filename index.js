@@ -1,16 +1,12 @@
 // import {createPopup} from './popup-show.js';
-
-
-
-fetch('http://demo.sibers.com/users')
+fetch('http://demo.sibers.com/users') // получаем json  с сервера
   .then(response => response.json())
   .then(json => {
-    // console.log(json);
-    // localStorage.clear();
     document.querySelector('#contactsNumber').innerHTML = json.length;
     for (let i = 0; i < json.length; i++) {
       // задаём приоритет у локально изменённых данных контакта
       if (!localStorage.getItem('User' + i)) {
+        // записываем данные в localStorage
         localStorage.setItem('User' + i, JSON.stringify(json[i]));
       }
     }
@@ -69,11 +65,12 @@ fetch('http://demo.sibers.com/users')
 // import {createContactItem} from './contacts.js';
 // import {createPopup} from './popup-show.js';
 
+let nameInput = document.querySelector('.popup-edit__name'),
+    emailInput = document.querySelector('.popup-edit__email'),
+    phoneInput = document.querySelector('.popup-edit__phone'),
+    companyInput = document.querySelector('.popup-edit__company');
+
 function editContacts(id) {
-  let nameInput = document.querySelector('.popup-edit__name'),
-      emailInput = document.querySelector('.popup-edit__email'),
-      phoneInput = document.querySelector('.popup-edit__phone'),
-      companyInput = document.querySelector('.popup-edit__email');
   document.querySelector('.popup-edit__save').addEventListener('click', (event) => {
     event.preventDefault();
     nameInput.value && editUser(id, nameInput.value);
@@ -95,21 +92,10 @@ function editContacts(id) {
 function editUser(userId, newName, newEmail, newPhone, newCompany) {
   let user = JSON.parse(localStorage.getItem('User' + userId));
 
-  if (newName) {
-    user.name = newName;
-  }
-
-  if (newEmail) {
-    user.name = newEmail;
-  }
-
-  if (newPhone) {
-    user.name = newPhone;
-  }
-
-  if (newCompany) {
-    user.name = newCompany;
-  }
+  if (newName) { user.name = newName }
+  if (newEmail) { user.name = newEmail }
+  if (newPhone) { user.name = newPhone }
+  if (newCompany) { user.name = newCompany }
 
   localStorage.setItem('User' + userId, JSON.stringify(user));
 }
@@ -139,19 +125,26 @@ function createPopup() {
     shownItems[i].addEventListener('click', function(event) {
       document.querySelector('.popup-overlay').style = 'display: block';
       document.querySelector('.popup-show').style = 'display: block';
-      document.querySelector('.popup-show__name')
-        .innerHTML = JSON.parse(localStorage.getItem('User' + i)).name;
 
-      document.querySelector('#email').innerHTML = JSON.parse(localStorage.getItem('User' + i)).email;
-      document.querySelector('#email')
-        .setAttribute('href', 'mailto:' + JSON.parse(localStorage.getItem('User' + i)).email);
+      let extractedName = JSON.parse(localStorage.getItem('User' + i)).name,
+          extractedEmail = JSON.parse(localStorage.getItem('User' + i)).email,
+          extractedPhone = JSON.parse(localStorage.getItem('User' + i)).phone,
+          extractedCompany = JSON.parse(localStorage.getItem('User' + i)).company.name;
 
-      document.querySelector('#phone').innerHTML = JSON.parse(localStorage.getItem('User' + i)).phone;
-      document.querySelector('#phone')
-        .setAttribute('href', 'tel:' + JSON.parse(localStorage.getItem('User' + i)).phone);
+      document.querySelector('.popup-show__name').innerHTML = extractedName;
 
-      document.querySelector('#company')
-        .innerHTML = JSON.parse(localStorage.getItem('User' + i)).company.name;
+      document.querySelector('#email').innerHTML = extractedEmail;
+      document.querySelector('#email').setAttribute('href', 'mailto:' + extractedEmail);
+
+      document.querySelector('#phone').innerHTML = extractedPhone;
+      document.querySelector('#phone').setAttribute('href', 'tel:' + extractedPhone);
+
+      document.querySelector('#company').innerHTML = extractedCompany;
+
+        nameInput.value = extractedName;
+        emailInput.value = extractedEmail;
+        phoneInput.value = extractedPhone;
+        companyInput.value = extractedCompany;
 
       document.querySelector('.popup-show__edit').addEventListener('click', (event) => {
         document.querySelector('.popup-show').style = 'display: none';

@@ -1,11 +1,12 @@
 // import {createContactItem} from './contacts.js';
 // import {createPopup} from './popup-show.js';
 
+let nameInput = document.querySelector('.popup-edit__name'),
+    emailInput = document.querySelector('.popup-edit__email'),
+    phoneInput = document.querySelector('.popup-edit__phone'),
+    companyInput = document.querySelector('.popup-edit__company');
+
 function editContacts(id) {
-  let nameInput = document.querySelector('.popup-edit__name'),
-      emailInput = document.querySelector('.popup-edit__email'),
-      phoneInput = document.querySelector('.popup-edit__phone'),
-      companyInput = document.querySelector('.popup-edit__email');
   document.querySelector('.popup-edit__save').addEventListener('click', (event) => {
     event.preventDefault();
     nameInput.value && editUser(id, nameInput.value);
@@ -27,21 +28,10 @@ function editContacts(id) {
 function editUser(userId, newName, newEmail, newPhone, newCompany) {
   let user = JSON.parse(localStorage.getItem('User' + userId));
 
-  if (newName) {
-    user.name = newName;
-  }
-
-  if (newEmail) {
-    user.name = newEmail;
-  }
-
-  if (newPhone) {
-    user.name = newPhone;
-  }
-
-  if (newCompany) {
-    user.name = newCompany;
-  }
+  if (newName) { user.name = newName }
+  if (newEmail) { user.name = newEmail }
+  if (newPhone) { user.name = newPhone }
+  if (newCompany) { user.name = newCompany }
 
   localStorage.setItem('User' + userId, JSON.stringify(user));
 }

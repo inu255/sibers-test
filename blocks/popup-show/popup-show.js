@@ -7,19 +7,26 @@ function createPopup() {
     shownItems[i].addEventListener('click', function(event) {
       document.querySelector('.popup-overlay').style = 'display: block';
       document.querySelector('.popup-show').style = 'display: block';
-      document.querySelector('.popup-show__name')
-        .innerHTML = JSON.parse(localStorage.getItem('User' + i)).name;
 
-      document.querySelector('#email').innerHTML = JSON.parse(localStorage.getItem('User' + i)).email;
-      document.querySelector('#email')
-        .setAttribute('href', 'mailto:' + JSON.parse(localStorage.getItem('User' + i)).email);
+      let extractedName = JSON.parse(localStorage.getItem('User' + i)).name,
+          extractedEmail = JSON.parse(localStorage.getItem('User' + i)).email,
+          extractedPhone = JSON.parse(localStorage.getItem('User' + i)).phone,
+          extractedCompany = JSON.parse(localStorage.getItem('User' + i)).company.name;
 
-      document.querySelector('#phone').innerHTML = JSON.parse(localStorage.getItem('User' + i)).phone;
-      document.querySelector('#phone')
-        .setAttribute('href', 'tel:' + JSON.parse(localStorage.getItem('User' + i)).phone);
+      document.querySelector('.popup-show__name').innerHTML = extractedName;
 
-      document.querySelector('#company')
-        .innerHTML = JSON.parse(localStorage.getItem('User' + i)).company.name;
+      document.querySelector('#email').innerHTML = extractedEmail;
+      document.querySelector('#email').setAttribute('href', 'mailto:' + extractedEmail);
+
+      document.querySelector('#phone').innerHTML = extractedPhone;
+      document.querySelector('#phone').setAttribute('href', 'tel:' + extractedPhone);
+
+      document.querySelector('#company').innerHTML = extractedCompany;
+
+        nameInput.value = extractedName;
+        emailInput.value = extractedEmail;
+        phoneInput.value = extractedPhone;
+        companyInput.value = extractedCompany;
 
       document.querySelector('.popup-show__edit').addEventListener('click', (event) => {
         document.querySelector('.popup-show').style = 'display: none';

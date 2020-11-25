@@ -1,16 +1,12 @@
 // import {createPopup} from './popup-show.js';
-
-
-
-fetch('http://demo.sibers.com/users')
+fetch('http://demo.sibers.com/users') // получаем json  с сервера
   .then(response => response.json())
   .then(json => {
-    // console.log(json);
-    // localStorage.clear();
     document.querySelector('#contactsNumber').innerHTML = json.length;
     for (let i = 0; i < json.length; i++) {
       // задаём приоритет у локально изменённых данных контакта
       if (!localStorage.getItem('User' + i)) {
+        // записываем данные в localStorage
         localStorage.setItem('User' + i, JSON.stringify(json[i]));
       }
     }
