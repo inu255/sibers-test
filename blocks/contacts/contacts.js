@@ -54,3 +54,5 @@ fetch('https://demo.sibers.com/users', {
     document.querySelector('#dynamicList').append(listItem);
 
   }
+
+console.log(1)
