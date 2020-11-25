@@ -1,6 +1,6 @@
 import {createPopup} from './popup-show.js';
 
-fetch('http://demo.sibers.com/users')
+fetch('https://demo.sibers.com/users')
   .then(response => response.json())
   .then(json => {
     // console.log(json);
