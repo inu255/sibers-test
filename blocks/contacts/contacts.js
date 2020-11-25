@@ -1,4 +1,4 @@
-fetch('http://demo.sibers.com/users', {
+fetch('https://demo.sibers.com/users', {
   method: 'PATCH',
   headers: {
     'Content-Type': 'application/json'
