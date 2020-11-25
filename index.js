@@ -44,7 +44,6 @@ fetch('http://demo.sibers.com/users') // получаем json  с сервер�
     listItem.append(itemEmail);
     listItem.append(itemPhone);
     listItem.append(itemCompany);
-    listItem.setAttribute('data-userid', id);
 
     document.querySelector('#dynamicList').append(listItem);
 
@@ -52,21 +51,27 @@ fetch('http://demo.sibers.com/users') // получаем json  с сервер�
 
 let headerInput = document.querySelector('.header__search');
 
+// когда пользователь вводит что-то в строку поиска,
+// список контактов выстраивается заново
 headerInput.addEventListener('input', () => {
   let filterable = document.querySelectorAll('.contacts__item');
 
   for (let i = 0; i < filterable.length; i++) {
+    // скрываем все элементы списка, чтобы отом отбразить только отфильтрованные
     filterable[i].style = 'display: none';
   }
     if (headerInput.value === '') {
       for (let k = 0; k <= filterable.length - 1; k++) {
-        filterable[k].style = 'display: block';
+        filterable[k].style = 'display: block'; // отображаем все элементы, если строка поиска пуста
       }
     } else {
-      let newStr = headerInput.value[0].toUpperCase() + headerInput.value.slice(1);
+      let newStr = headerInput.value[0].toUpperCase() + headerInput.value.slice(1); // то что ввёл пользователь
 
-      for (var i = 0; i < localStorage.length; i++) {
+      for (let i = 0; i < localStorage.length; i++) {
+        // введённый в строку поиска текст сравнивается
+        // со свойством name соответствующего контакта
         if (JSON.parse(localStorage.getItem('User' + i)).name.indexOf(newStr) === 0) {
+          // и, если совпадение есть, элемент этого контакта выводится на страницу
           filterable[i].style = 'display: block';
         }
       }
@@ -74,13 +79,52 @@ headerInput.addEventListener('input', () => {
 
 })
 
-// import {editContacts} from './popup-edit.js';
+let nameInput = document.querySelector('input.popup-edit__name'),
+    emailInput = document.querySelector('input.popup-edit__email'),
+    phoneInput = document.querySelector('input.popup-edit__phone'),
+    companyInput = document.querySelector('input.popup-edit__company');
+
+function editContacts(id) {
+  // по нажатию на кнопку save данные о контакте в localStorage изменяются
+  document.querySelector('.popup-edit__save').addEventListener('click', (event) => {
+    event.preventDefault();
+    // десерелизуем данные контакта из localStorage
+    let user = JSON.parse(localStorage.getItem('User' + id));
+
+    // меняем свойства на введённые в инпуты
+    if (nameInput.value) user.name = nameInput.value[0].toUpperCase() + nameInput.value.slice(1);
+    if (emailInput.value) user.email = emailInput.value;
+    if (phoneInput.value) user.phone = phoneInput.value;
+    if (companyInput.value) user.company.name = companyInput.value;
+
+    // снова серелизуем и записываем в localStorage
+    localStorage.setItem('User' + id, JSON.stringify(user));
+    // перезагружаем страницу, чтобы заново сформировать список контактов с уже изменёнными данными
+    window.location.reload();
+  })
+}
+
+// прослушивается скрытие попапов
+document.querySelector('.popup-edit__hide').addEventListener('click', (event) => {
+  document.querySelector('.popup-overlay').style = 'display: none';
+  document.querySelector('.popup-edit').style = 'display: none';
+  document.querySelector('.popup-show').style = 'display: none';
+})
+
+// прослушивается скрытие попапов
+document.querySelector('.popup-edit__cancel').addEventListener('click', (event) => {
+  event.preventDefault();
+  document.querySelector('.popup-edit').style = 'display: none';
+  document.querySelector('.popup-show').style = 'display: block';
+})
 
 function createPopup() {
   let shownItems = document.querySelectorAll('#dynamicList > *');
 
   for (let i = 0; i < shownItems.length; i++) {
+    // отслеживаем клик по определённому элементу списка контактов
     shownItems[i].addEventListener('click', function(event) {
+      // отображаем попап с данными
       document.querySelector('.popup-overlay').style = 'display: block';
       document.querySelector('.popup-show').style = 'display: block';
 
@@ -89,8 +133,7 @@ function createPopup() {
           extractedPhone = JSON.parse(localStorage.getItem('User' + i)).phone,
           extractedCompany = JSON.parse(localStorage.getItem('User' + i)).company.name;
 
-      console.log(extractedName, extractedEmail, extractedPhone, extractedCompany)
-
+      // вставляем данные о контакте в попап
       document.querySelector('.popup-show__name').innerHTML = extractedName;
       document.querySelector('#email').innerHTML = extractedEmail;
       document.querySelector('#email').setAttribute('href', 'mailto:' + extractedEmail);
@@ -98,11 +141,13 @@ function createPopup() {
       document.querySelector('#phone').setAttribute('href', 'tel:' + extractedPhone);
       document.querySelector('#company').innerHTML = extractedCompany;
 
-        nameInput.value = extractedName;
-        emailInput.value = extractedEmail;
-        phoneInput.value = extractedPhone;
-        companyInput.value = extractedCompany;
+      // в value интпутов второго попапа подаются текущие данные о контакте
+      nameInput.value = extractedName;
+      emailInput.value = extractedEmail;
+      phoneInput.value = extractedPhone;
+      companyInput.value = extractedCompany;
 
+      // прослушивается скрытие попапов
       document.querySelector('.popup-show__edit').addEventListener('click', (event) => {
         document.querySelector('.popup-show').style = 'display: none';
         document.querySelector('.popup-edit').style = 'display: block';
@@ -112,48 +157,18 @@ function createPopup() {
   }
 }
 
+// прослушивается скрытие попапов
 document.querySelector('.popup-show__hide').addEventListener('click', (event) => {
   document.querySelector('.popup-overlay').style = 'display: none';
   document.querySelector('.popup-show').style = 'display: none';
   document.querySelector('.popup-edit').style = 'display: none';
 })
 
+// прослушивается скрытие попапов
 document.querySelector('.popup-overlay').addEventListener('click', (event) => {
   document.querySelector('.popup-overlay').style = 'display: none';
   document.querySelector('.popup-edit').style = 'display: none';
   document.querySelector('.popup-show').style = 'display: none';
-})
-
-let nameInput = document.querySelector('input.popup-edit__name'),
-    emailInput = document.querySelector('input.popup-edit__email'),
-    phoneInput = document.querySelector('input.popup-edit__phone'),
-    companyInput = document.querySelector('input.popup-edit__company');
-
-function editContacts(id) {
-  document.querySelector('.popup-edit__save').addEventListener('click', (event) => {
-    event.preventDefault();
-    let user = JSON.parse(localStorage.getItem('User' + id));
-
-    if (nameInput.value) user.name = nameInput.value[0].toUpperCase() + nameInput.value.slice(1);
-    if (emailInput.value) user.email = emailInput.value;
-    if (phoneInput.value) user.phone = phoneInput.value;
-    if (companyInput.value) user.company.name = companyInput.value;
-
-    localStorage.setItem('User' + id, JSON.stringify(user));
-    window.location.reload();
-  })
-}
-
-document.querySelector('.popup-edit__hide').addEventListener('click', (event) => {
-  document.querySelector('.popup-overlay').style = 'display: none';
-  document.querySelector('.popup-edit').style = 'display: none';
-  document.querySelector('.popup-show').style = 'display: none';
-})
-
-document.querySelector('.popup-edit__cancel').addEventListener('click', (event) => {
-  event.preventDefault();
-  document.querySelector('.popup-edit').style = 'display: none';
-  document.querySelector('.popup-show').style = 'display: block';
 })
 
 //# sourceMappingURL=index.js.map

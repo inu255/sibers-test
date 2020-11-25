@@ -44,7 +44,6 @@ fetch('http://demo.sibers.com/users') // получаем json  с сервер�
     listItem.append(itemEmail);
     listItem.append(itemPhone);
     listItem.append(itemCompany);
-    listItem.setAttribute('data-userid', id);
 
     document.querySelector('#dynamicList').append(listItem);
 
