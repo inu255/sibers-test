@@ -1,4 +1,4 @@
-fetch('http://demo.sibers.com/users') // получаем json  с сервера
+fetch('https://demo.sibers.com/users') // получаем json  с сервера
   .then(response => response.json())
   .then(json => {
     document.querySelector('#contactsNumber').innerHTML = json.length;
@@ -48,6 +48,8 @@ fetch('http://demo.sibers.com/users') // получаем json  с сервер�
     document.querySelector('#dynamicList').append(listItem);
 
   }
+
+console.log(1)
 
 let headerInput = document.querySelector('.header__search');
 

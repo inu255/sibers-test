@@ -1,10 +1,4 @@
-fetch('https://demo.sibers.com/users', {
-  method: 'PATCH',
-  headers: {
-    'Content-Type': 'application/json'
-    'API-Key': 'secret'
-  }
-}) // получаем json  с сервера
+fetch('https://demo.sibers.com/users') // получаем json  с сервера
   .then(response => response.json())
   .then(json => {
     document.querySelector('#contactsNumber').innerHTML = json.length;
