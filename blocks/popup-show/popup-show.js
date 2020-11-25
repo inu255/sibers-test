@@ -13,14 +13,13 @@ function createPopup() {
           extractedPhone = JSON.parse(localStorage.getItem('User' + i)).phone,
           extractedCompany = JSON.parse(localStorage.getItem('User' + i)).company.name;
 
-      document.querySelector('.popup-show__name').innerHTML = extractedName;
+      console.log(extractedName, extractedEmail, extractedPhone, extractedCompany)
 
+      document.querySelector('.popup-show__name').innerHTML = extractedName;
       document.querySelector('#email').innerHTML = extractedEmail;
       document.querySelector('#email').setAttribute('href', 'mailto:' + extractedEmail);
-
       document.querySelector('#phone').innerHTML = extractedPhone;
       document.querySelector('#phone').setAttribute('href', 'tel:' + extractedPhone);
-
       document.querySelector('#company').innerHTML = extractedCompany;
 
         nameInput.value = extractedName;

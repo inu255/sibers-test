@@ -38,7 +38,6 @@ fetch('http://demo.sibers.com/users') // получаем json  с сервер�
     itemCompany.innerHTML = currentUser.company.name;
     itemCompany.innerHTML = currentUser.company.name;
 
-
     listItem.appendChild(itemName);
     listItem.appendChild(itemEmail);
     listItem.appendChild(itemPhone);
@@ -46,16 +45,8 @@ fetch('http://demo.sibers.com/users') // получаем json  с сервер�
     listItem.setAttribute('data-userid', id);
 
     // dynamicList.appendChild(listItem);
-    if (id === 0) {
-      document.querySelector('#dynamicList').insertAdjacentElement('afterbegin', listItem);
-    } else {
-      document.querySelector('#dynamicList [data-userid="'+ (id - 1) + '"]')
-      // document.querySelector('#dynamicList').children[id]
-        .insertAdjacentElement('afterend', listItem);
-        // такая конструкция нужна для того, чтобы применять эту функцию
-        // и при создании списка контактов при загрузке страницы,
-        // и для вывода результатов поиска, и для мгновенного отображения
-        // элементов изменённого через попап контакта
-    }
 
+    document.querySelector('#dynamicList').append(listItem);
+
+    console.log(1);
   }

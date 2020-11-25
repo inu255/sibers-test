@@ -1,39 +1,36 @@
 // import {createContactItem} from './contacts.js';
 // import {createPopup} from './popup-show.js';
 
-let nameInput = document.querySelector('.popup-edit__name'),
-    emailInput = document.querySelector('.popup-edit__email'),
-    phoneInput = document.querySelector('.popup-edit__phone'),
-    companyInput = document.querySelector('.popup-edit__company');
+let nameInput = document.querySelector('input.popup-edit__name'),
+    emailInput = document.querySelector('input.popup-edit__email'),
+    phoneInput = document.querySelector('input.popup-edit__phone'),
+    companyInput = document.querySelector('input.popup-edit__company');
 
 function editContacts(id) {
   document.querySelector('.popup-edit__save').addEventListener('click', (event) => {
     event.preventDefault();
-    nameInput.value && editUser(id, nameInput.value);
-    emailInput.value && editUser(id, false, emailInput.value);
-    phoneInput.value && editUser(id, false, false, phoneInput.value);
-    companyInput.value && editUser(id, false, false, false, companyInput.value);
+    let user = JSON.parse(localStorage.getItem('User' + id));
 
-    document.querySelector('#dynamicList [data-userid="'+ id + '"]').remove();
-    createContactItem(id);
-    createPopup();
+    if (nameInput.value) user.name = nameInput.value;
+    if (emailInput.value) user.email = emailInput.value;
+    if (phoneInput.value) user.phone = phoneInput.value;
+    if (companyInput.value) user.company.name = companyInput.value;
 
-    document.querySelector('.popup-overlay').style = 'display: none';
-    document.querySelector('.popup-edit').style = 'display: none';
-    document.querySelector('.popup-show').style = 'display: none';
+    localStorage.setItem('User' + id, JSON.stringify(user));
+    window.location.reload();
+    // document.querySelector('#dynamicList [data-userid="'+ id + '"]').remove();
+    // createContactItem(id);
+    // createPopup();
+    //
+    // document.querySelector('.popup-overlay').style = 'display: none';
+    // document.querySelector('.popup-edit').style = 'display: none';
+    // document.querySelector('.popup-show').style = 'display: none';
+
+
+
+
     // сделать скрытие попапов через функцию
   })
-}
-
-function editUser(userId, newName, newEmail, newPhone, newCompany) {
-  let user = JSON.parse(localStorage.getItem('User' + userId));
-
-  if (newName) { user.name = newName }
-  if (newEmail) { user.name = newEmail }
-  if (newPhone) { user.name = newPhone }
-  if (newCompany) { user.name = newCompany }
-
-  localStorage.setItem('User' + userId, JSON.stringify(user));
 }
 
 function closePopups() {

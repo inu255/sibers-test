@@ -38,7 +38,6 @@ fetch('http://demo.sibers.com/users') // получаем json  с сервер�
     itemCompany.innerHTML = currentUser.company.name;
     itemCompany.innerHTML = currentUser.company.name;
 
-
     listItem.appendChild(itemName);
     listItem.appendChild(itemEmail);
     listItem.appendChild(itemPhone);
@@ -46,58 +45,45 @@ fetch('http://demo.sibers.com/users') // получаем json  с сервер�
     listItem.setAttribute('data-userid', id);
 
     // dynamicList.appendChild(listItem);
-    if (id === 0) {
-      document.querySelector('#dynamicList').insertAdjacentElement('afterbegin', listItem);
-    } else {
-      document.querySelector('#dynamicList [data-userid="'+ (id - 1) + '"]')
-      // document.querySelector('#dynamicList').children[id]
-        .insertAdjacentElement('afterend', listItem);
-        // такая конструкция нужна для того, чтобы применять эту функцию
-        // и при создании списка контактов при загрузке страницы,
-        // и для вывода результатов поиска, и для мгновенного отображения
-        // элементов изменённого через попап контакта
-    }
 
+    document.querySelector('#dynamicList').append(listItem);
+
+    console.log(1);
   }
-
-// тут будет поиск
 
 // import {createContactItem} from './contacts.js';
 // import {createPopup} from './popup-show.js';
 
-let nameInput = document.querySelector('.popup-edit__name'),
-    emailInput = document.querySelector('.popup-edit__email'),
-    phoneInput = document.querySelector('.popup-edit__phone'),
-    companyInput = document.querySelector('.popup-edit__company');
+let nameInput = document.querySelector('input.popup-edit__name'),
+    emailInput = document.querySelector('input.popup-edit__email'),
+    phoneInput = document.querySelector('input.popup-edit__phone'),
+    companyInput = document.querySelector('input.popup-edit__company');
 
 function editContacts(id) {
   document.querySelector('.popup-edit__save').addEventListener('click', (event) => {
     event.preventDefault();
-    nameInput.value && editUser(id, nameInput.value);
-    emailInput.value && editUser(id, false, emailInput.value);
-    phoneInput.value && editUser(id, false, false, phoneInput.value);
-    companyInput.value && editUser(id, false, false, false, companyInput.value);
+    let user = JSON.parse(localStorage.getItem('User' + id));
 
-    document.querySelector('#dynamicList [data-userid="'+ id + '"]').remove();
-    createContactItem(id);
-    createPopup();
+    if (nameInput.value) user.name = nameInput.value;
+    if (emailInput.value) user.email = emailInput.value;
+    if (phoneInput.value) user.phone = phoneInput.value;
+    if (companyInput.value) user.company.name = companyInput.value;
 
-    document.querySelector('.popup-overlay').style = 'display: none';
-    document.querySelector('.popup-edit').style = 'display: none';
-    document.querySelector('.popup-show').style = 'display: none';
+    localStorage.setItem('User' + id, JSON.stringify(user));
+    window.location.reload();
+    // document.querySelector('#dynamicList [data-userid="'+ id + '"]').remove();
+    // createContactItem(id);
+    // createPopup();
+    //
+    // document.querySelector('.popup-overlay').style = 'display: none';
+    // document.querySelector('.popup-edit').style = 'display: none';
+    // document.querySelector('.popup-show').style = 'display: none';
+
+
+
+
     // сделать скрытие попапов через функцию
   })
-}
-
-function editUser(userId, newName, newEmail, newPhone, newCompany) {
-  let user = JSON.parse(localStorage.getItem('User' + userId));
-
-  if (newName) { user.name = newName }
-  if (newEmail) { user.name = newEmail }
-  if (newPhone) { user.name = newPhone }
-  if (newCompany) { user.name = newCompany }
-
-  localStorage.setItem('User' + userId, JSON.stringify(user));
 }
 
 function closePopups() {
@@ -131,14 +117,13 @@ function createPopup() {
           extractedPhone = JSON.parse(localStorage.getItem('User' + i)).phone,
           extractedCompany = JSON.parse(localStorage.getItem('User' + i)).company.name;
 
-      document.querySelector('.popup-show__name').innerHTML = extractedName;
+      console.log(extractedName, extractedEmail, extractedPhone, extractedCompany)
 
+      document.querySelector('.popup-show__name').innerHTML = extractedName;
       document.querySelector('#email').innerHTML = extractedEmail;
       document.querySelector('#email').setAttribute('href', 'mailto:' + extractedEmail);
-
       document.querySelector('#phone').innerHTML = extractedPhone;
       document.querySelector('#phone').setAttribute('href', 'tel:' + extractedPhone);
-
       document.querySelector('#company').innerHTML = extractedCompany;
 
         nameInput.value = extractedName;
@@ -166,5 +151,7 @@ document.querySelector('.popup-overlay').addEventListener('click', (event) => {
   document.querySelector('.popup-edit').style = 'display: none';
   document.querySelector('.popup-show').style = 'display: none';
 })
+
+// тут будет поиск
 
 //# sourceMappingURL=index.js.map
