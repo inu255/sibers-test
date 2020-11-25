@@ -1,8 +1,7 @@
-import {createContactItem} from './contacts.js';
-import {createPopup} from './popup-show.js';
+// import {createContactItem} from './contacts.js';
+// import {createPopup} from './popup-show.js';
 
-
-export function editContacts(id) {
+function editContacts(id) {
   let nameInput = document.querySelector('.popup-edit__name'),
       emailInput = document.querySelector('.popup-edit__email'),
       phoneInput = document.querySelector('.popup-edit__phone'),

@@ -1,6 +1,6 @@
-import {editContacts} from './popup-edit.js';
+// import {editContacts} from './popup-edit.js';
 
-export function createPopup() {
+function createPopup() {
   let shownItems = document.querySelectorAll('#dynamicList > *');
 
   for (let i = 0; i < shownItems.length; i++) {

@@ -1,19 +1,22 @@
 const gulp = require('gulp');
 const rename = require('gulp-rename');
+const concat = require('gulp-concat');
+const minifyJs = require('gulp-minify');
 const sass = require('gulp-sass');
+const clean = require('gulp-clean');
 const autoprefixer = require('gulp-autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
 const browserSync = require('browser-sync').create();
 
 
 function convertSass(done) {
-  gulp.src('./blocks/*.scss')
+  gulp.src('./blocks/**/*.scss')
+    .pipe(concat('index.scss'))
     .pipe(sourcemaps.init())
     .pipe(sass({
       errorLogConsole: true,
       outputStyle: 'compressed'
     }))
-    .pipe(concat('./index.css'))
     .on('error', console.error.bind(console))
     .pipe(autoprefixer({
       cascade: false
@@ -22,6 +25,21 @@ function convertSass(done) {
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./'))
     .pipe(browserSync.stream())
+
+  done();
+}
+
+function concatJs(done) {
+  gulp.src('./blocks/**/*.js')
+    .pipe(sourcemaps.init())
+    .pipe(concat('index.js'))
+    .pipe(minifyJs())
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('./'))
+    .pipe(browserSync.stream());
+
+  // gulp.src('./index.js')
+  //   .pipe(clean())
 
   done();
 }
@@ -42,9 +60,9 @@ function browserReload(done) {
 }
 
 function watchAll() {
-  gulp.watch("./scss/*", convertSass);
+  gulp.watch("./blocks/**/*.scss", convertSass);
   gulp.watch("./index.html", browserReload);
-  gulp.watch("./js/*", browserReload);
+  gulp.watch("./blocks/**/*.js", concatJs);
 
 }
 

@@ -1,6 +1,8 @@
-import {createPopup} from './popup-show.js';
+// import {createPopup} from './popup-show.js';
 
-fetch('https://demo.sibers.com/users')
+
+
+fetch('http://demo.sibers.com/users')
   .then(response => response.json())
   .then(json => {
     // console.log(json);
@@ -20,7 +22,8 @@ fetch('https://demo.sibers.com/users')
     createPopup();
   })
 
-    export function createContactItem(id) {
+    // export
+    function createContactItem(id) {
     let currentUser = JSON.parse(localStorage.getItem('User' + id));
     let listItem = document.createElement('div'),
         itemName = document.createElement('div'),
