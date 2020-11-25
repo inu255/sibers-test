@@ -7,20 +7,20 @@ const browserSync = require('browser-sync').create();
 
 
 function convertSass(done) {
-  gulp.src('./scss/*')
+  gulp.src('./blocks/*.scss')
     .pipe(sourcemaps.init())
     .pipe(sass({
       errorLogConsole: true,
       outputStyle: 'compressed'
     }))
+    .pipe(concat('./index.css'))
     .on('error', console.error.bind(console))
     .pipe(autoprefixer({
-      // browsers: ['last 2 versions'],
       cascade: false
     }))
     .pipe(rename({suffix: '.min'}))
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./css/'))
+    .pipe(gulp.dest('./'))
     .pipe(browserSync.stream())
 
   done();
